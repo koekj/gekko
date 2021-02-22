@@ -15,6 +15,13 @@ var _gekkoEnv = false;
 
 var _args = false;
 
+//parse the command line
+program
+    .storeOptionsAsProperties()
+    .option("--config <config>", "-c", "Config file")
+    .option("--ui", "-u", "Start ui")
+    .parse(process.argv);
+
 // helper functions
 var util = {
   getConfig: function() {
@@ -170,7 +177,7 @@ var util = {
 // in stand alone mode
 program
   .version(util.logVersion())
-  .option('-c, --config <file>', 'Config file')
+  .option('-c, --config <config>', 'Config file')
   .option('-b, --backtest', 'backtesting mode')
   .option('-i, --import', 'importer mode')
   .option('--ui', 'launch a web UI')

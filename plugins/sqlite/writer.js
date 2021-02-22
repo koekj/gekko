@@ -8,10 +8,11 @@ var log = require('../../core/log');
 
 var Store = function(done, pluginMeta) {
   _.bindAll(this);
+  
   this.done = done;
 
   this.db = sqlite.initDB(false);
-  this.db.serialize(this.upsertTables);
+  this.db.serialize(this.upsertTables.bind(this));
 
   this.cache = [];
   this.buffered = util.gekkoMode() === "importer";
