@@ -44,7 +44,7 @@ Store.prototype.upsertTables = function() {
 
   var next = _.after(_.size(createQueries), this.done);
 
-  _.each(createQueries, function(q) {
+  _.each(createQueries, (q) => {
     this.db.run(q, next);
   }, this);
 }
@@ -78,7 +78,7 @@ Store.prototype.writeCandles = function() {
         candle.volume,
         candle.trades
       );
-    });
+    }, this);
 
     stmt.finalize();
     this.db.run("COMMIT");

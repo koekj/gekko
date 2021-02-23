@@ -1,8 +1,9 @@
 const _ = require('lodash');
-const fs = require('co-fs');
+const fs = require('fs');
+const path = require('path');
 
-const gekkoRoot = __dirname + '/../../';
-var util = require(__dirname + '/../../core/util');
+const gekkoRoot = path.join(__dirname, '..', '..');
+var util = require(path.join(gekkoRoot, 'core', 'util'));
 
 var config = {};
 
@@ -11,29 +12,29 @@ config.silent = false;
 
 util.setConfig(config);
 
-module.exports = function *() {
-  const exchangesDir = yield fs.readdir(gekkoRoot + 'exchange/wrappers/');
-  const exchanges = exchangesDir
-    .filter(f => _.last(f, 3).join('') === '.js')
-    .map(f => f.slice(0, -3));
+module.exports = function (ctx,next) {
+  return new Promise((resolve) => {
+    const allCapabilities = [];
+    const dir = path.join(gekkoRoot, 'exchange', 'wrappers');
+    fs.readdir(dir, function(err, files ) {
+        files.filter(f => f.endsWith(".js"))
+        .map(f => f.slice(0, -3)).forEach((exchange) => {
+          try {
+            const file = path.join(gekkoRoot, 'exchange', 'wrappers', exchange);
+            const Trader = require(file);
+            if (!Trader || !Trader.getCapabilities) {
+              return;
+            }
+            allCapabilities.push(Trader.getCapabilities());
 
-  let allCapabilities = [];
-
-  exchanges.forEach(function (exchange) {
-    let Trader = null;
-
-    try {
-      Trader = require(gekkoRoot + 'exchange/wrappers/' + exchange);
-    } catch (e) {
-      return;
-    }
-
-    if (!Trader || !Trader.getCapabilities) {
-      return;
-    }
-
-    allCapabilities.push(Trader.getCapabilities());
+          } catch (e) {
+          return;
+          }
+      
+      
+        });
+        ctx.body = allCapabilities;
+        resolve();  
+    });  
   });
-
-  this.body = allCapabilities;
 }

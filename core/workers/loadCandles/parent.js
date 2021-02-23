@@ -19,7 +19,7 @@
 
 //     dependencies: [{
 //       module: 'sqlite3',
-//       version: '3.1.4'
+//       version: '5.0.2'
 //     }]
 //   },
 //   candleSize: 100

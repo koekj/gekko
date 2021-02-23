@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\gekko.js",
-            "args": [ "--config", "config.js"]
+            "args": [ "--config", "config.js", "--ui"]
         }
     ]
 }

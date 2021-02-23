@@ -21,7 +21,7 @@
 
 //     dependencies: [{
 //       module: 'sqlite3',
-//       version: '3.1.4'
+//       version: '5.0.2'
 //     }]
 //   },
 //   candleSize: 100
@@ -32,9 +32,10 @@ const promisify = require('tiny-promisify');
 const candleLoader = promisify(require('../../core/workers/loadCandles/parent'));
 const base = require('./baseConfig');
 
-module.exports = function *() {
-
-  config = {};
-  _.merge(config, base, this.request.body);
-  this.body = yield candleLoader(config);
+module.exports = function (ctx,next) {
+  return new Promise((resolve) => {
+    config = {};
+    _.merge(config, base, ctx.request.body);
+    ctx.body = candleLoader(config, resolve);
+  })
 }

@@ -7,13 +7,10 @@ const scan = promisify(require('../../core/workers/datasetScan/parent'));
 // requires a post body with configuration of:
 // 
 // - config.watch
-const route = function *() {
-
+const route = function (ctx,next) {
   var config = require('./baseConfig');
-
-  _.merge(config, this.request.body);
-
-  this.body = yield scan(config);
+  _.merge(config, ctx.request.body);
+  ctx.body = scan(config);
 };
 
 module.exports = route;

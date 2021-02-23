@@ -1,5 +1,6 @@
 const config = require('./vue/dist/UIconfig');
 
+const path = require('path');
 const koa = require('koa');
 const serve = require('koa-static');
 const cors = require('koa-cors');
@@ -8,9 +9,9 @@ const bodyParser = require('koa-bodyparser');
 
 const opn = require('opn');
 const server = require('http').createServer();
-const router = require('koa-router')();
+const router = new require('koa-router')();
 const ws = require('ws');
-const app = new koa();
+const app = module.exports = new koa();
 
 const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({ server: server });
@@ -74,12 +75,17 @@ cache.set('apiKeyManager', require('./apiKeyManager'));
 
 // setup API routes
 
-const WEBROOT = __dirname + '/';
-const ROUTE = n => WEBROOT + 'routes/' + n;
+const WEBROOT = path.join(__dirname, '/');
+console.log("__dirname", WEBROOT );
+const ROUTE = (n) => {
+  const route = path.join(WEBROOT, 'routes', n);
+  console.log(route);
+  return route;
+};
 
 // attach routes
 const apiKeys = require(ROUTE('apiKeys'));
-router.get('/api/info', require(ROUTE('info')));
+router.get('/api/info',  require(ROUTE('info')));
 router.get('/api/strategies', require(ROUTE('strategies')));
 router.get('/api/configPart/:part', require(ROUTE('configPart')));
 router.get('/api/apiKeys', apiKeys.get);
@@ -100,7 +106,6 @@ router.post('/api/stopGekko', require(ROUTE('stopGekko')));
 router.post('/api/deleteGekko', require(ROUTE('deleteGekko')));
 router.post('/api/getCandles', require(ROUTE('getCandles')));
 
-
 // incoming WS:
 // wss.on('connection', ws => {
 //   ws.on('message', _.noop);
@@ -110,7 +115,7 @@ app
   .use(cors())
   .use(serve(WEBROOT + 'vue/dist'))
   .use(bodyParser())
-  .use(require('koa-logger')())
+  .use(new require('koa-logger')())
   .use(router.routes())
   .use(router.allowedMethods());
 

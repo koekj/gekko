@@ -2,24 +2,24 @@ const cache = require('../state/cache');
 const manager = cache.get('apiKeyManager');
 
 module.exports = {
-  get: function *() {
-    this.body = manager.get();
+  get: function (ctx,next) {
+    ctx.body = manager.get();
   },
-  add: function *() {
-    const content = this.request.body;
+  add: function (ctx,next) {
+    const content = ctx.request.body;
 
     manager.add(content.exchange, content.values);
 
-    this.body = {
+    ctx.body = {
       status: 'ok'
     };
   },
-  remove: function *() {
-    const exchange = this.request.body.exchange;
+  remove: function (ctx,next) {
+    const exchange = ctx.request.body.exchange;
 
     manager.remove(exchange);
 
-    this.body = {
+    ctx.body = {
       status: 'ok'
     };
   }

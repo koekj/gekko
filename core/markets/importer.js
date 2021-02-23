@@ -43,11 +43,12 @@ if(to <= from)
 
 var Market = function() {
   _.bindAll(this);
+
   this.exchangeSettings = exchangeChecker.settings(config.watch);
 
   this.tradeBatcher = new TradeBatcher(this.exchangeSettings.tid);
   this.candleManager = new CandleManager;
-  this.fetcher = fetcher({
+  this.fetcher = new fetcher({
     to: to,
     from: from
   });

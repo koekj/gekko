@@ -16,7 +16,7 @@ const pipelineRunner = promisify(require('../../core/workers/pipeline/parent'));
 //     roundtrips: true
 //   }
 // }
-module.exports = function *() {
+module.exports = function (ctx,next) {
   var mode = 'backtest';
 
   var config = {};
@@ -27,5 +27,5 @@ module.exports = function *() {
 
   _.merge(config, base, req);
 
-  this.body = yield pipelineRunner(mode, config);
+  ctxt.body = pipelineRunner(mode, config);
 }
