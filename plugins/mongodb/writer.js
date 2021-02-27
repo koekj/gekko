@@ -9,7 +9,7 @@ var handle = require('./handle');
 var mongoUtil = require('./util');
 
 var Store = function Store (done) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
   this.done = done;
   this.db = handle;
   this.historyCollection = this.db.collection(mongoUtil.settings.historyCollection);
@@ -31,7 +31,7 @@ Store.prototype.writeCandles = function writeCandles () {
   }
 
   var candles = [];
-  _.each(this.candleCache, candle => {
+  this.candleCache.forEach(candle => {
     var mCandle = {
       time: moment().unix(),
       start: candle.start.unix(),

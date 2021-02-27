@@ -14,7 +14,7 @@ const watchConfig = config.watch;
 const Logger = require('./logger');
 
 const PerformanceAnalyzer = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.dates = {
     start: false,

@@ -6,10 +6,8 @@ var config = require('../core/util').getConfig();
 var xmppbot = config.xmppbot;
 var utc = moment.utc;
 
-
-
 var Actor = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.bot = new xmpp.Client({ jid: xmppbot.client_id,
                password: xmppbot.client_pwd,

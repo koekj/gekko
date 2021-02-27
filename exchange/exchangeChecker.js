@@ -4,7 +4,7 @@ const moment = require('moment');
 const errors = require('./exchangeErrors');
 
 const Checker = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 }
 
 Checker.prototype.getExchangeCapabilities = function(slug) {
@@ -87,10 +87,10 @@ Checker.prototype.cantTrade = function(conf) {
     return '"your-secret" is not a valid API secret';
 
   var error = false;
-  _.each(exchange.requires, function(req) {
+  exchange.requires.forEach((req) => {
     if(!conf[req])
       error = name + ' requires "' + req + '" to be set in the config';
-  }, this);
+  });
 
   return error;
 }

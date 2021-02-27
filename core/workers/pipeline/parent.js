@@ -18,7 +18,7 @@ module.exports = (mode, config, callback) => {
     config: config
   };
 
-  child.on('message', function(m) {
+  child.on('message', (m) => {
     if(m === 'ready')
       return child.send(message);
 

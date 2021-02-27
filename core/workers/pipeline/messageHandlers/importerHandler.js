@@ -13,6 +13,9 @@ module.exports = cb => {
         cb(message.error);
       }
 
+      else if(message.type === 'info')
+        console.log(message.log);
+        
       else if(message.type === 'log')
         console.log(message.log);
     },

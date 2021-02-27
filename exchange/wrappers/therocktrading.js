@@ -199,7 +199,7 @@ Trader.prototype.getOrder = function(order, callback) {
       return callback(null, {price, amount, date});
     }
 
-    _.each(result.trades, trade => {
+    result.trades.forEach(trade => {
       date = moment(trade.date);
       price = ((price * amount) + (+trade.price * trade.amount)) / (+trade.amount + amount);
       amount += +trade.amount;

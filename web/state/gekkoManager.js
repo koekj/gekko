@@ -8,6 +8,8 @@ const reduceState = require('./reduceState.js');
 const now = () => moment().format('YYYY-MM-DD HH:mm');
 
 const GekkoManager = function() {
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+
   this.gekkos = {};
   this.instances = {};
   this.loggers = {};

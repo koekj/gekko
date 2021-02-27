@@ -7,7 +7,7 @@ var util = require('../../core/util');
 var log = require('../../core/log');
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
   
   this.done = done;
 
@@ -44,9 +44,9 @@ Store.prototype.upsertTables = function() {
 
   var next = _.after(_.size(createQueries), this.done);
 
-  _.each(createQueries, (q) => {
+  createQueries.forEach((q) => {
     this.db.run(q, next);
-  }, this);
+  });
 }
 
 Store.prototype.writeCandles = function() {
@@ -66,7 +66,7 @@ Store.prototype.writeCandles = function() {
         }
       });
 
-    _.each(this.cache, candle => {
+    this.cache.forEach(candle => {
       stmt.run(
         null,
         candle.start.unix(),
@@ -78,7 +78,7 @@ Store.prototype.writeCandles = function() {
         candle.volume,
         candle.trades
       );
-    }, this);
+    });
 
     stmt.finalize();
     this.db.run("COMMIT");

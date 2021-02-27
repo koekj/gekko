@@ -5,7 +5,8 @@ var moment = require('moment');
 var log = require('../core/log');
 
 var Trader = function(config) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;
@@ -28,7 +29,7 @@ Trader.prototype.retry = function(method, args) {
 
   // make sure the callback (and any other fn)
   // is bound to Trader
-  _.each(args, function(arg, i) {
+  args.forEach((arg, i) => {
     if(_.isFunction(arg))
       args[i] = _.bind(arg, self);
   });

@@ -18,13 +18,13 @@ var MarketDataProvider =  require(dirs.budfox + 'marketDataProvider');
 var CandleManager = require(dirs.budfox + 'candleManager');
 
 var BudFox = function(config) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   Readable.call(this, {objectMode: true});
 
   // BudFox internal modules:
   
-  this.heart = new Heart;
+  this.heart = new Heart();
   this.marketDataProvider = new MarketDataProvider(config);
   this.candleManager = new CandleManager;
 
@@ -72,7 +72,7 @@ BudFox.prototype = Object.create(Readable.prototype, {
 BudFox.prototype._read = function noop() {}
 
 BudFox.prototype.pushCandles = function(candles) {
-  _.each(candles, this.push);
+  candles.forEach(c => this.push(c));
 }
 
 module.exports = BudFox;

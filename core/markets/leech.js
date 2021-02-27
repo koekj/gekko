@@ -34,7 +34,7 @@ else
 
 var Market = function() {
 
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   Readable.call(this, {objectMode: true});
 
@@ -80,10 +80,10 @@ Market.prototype.processCandles = function(err, candles) {
   // if `this.latestTs` was at 10:00 and we receive 3 candles with the latest at 11:00
   // we know we are missing 57 candles...
 
-  _.each(candles, function(c, i) {
+  candles.forEach((c,i) => {
     c.start = moment.unix(c.start).utc();
     this.push(c);
-  }, this);
+  });
 
   this.latestTs = _.last(candles).start.unix() + 1;
 }

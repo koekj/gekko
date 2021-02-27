@@ -16,10 +16,8 @@ else
 var Heart = function() {
   this.lastTick = false;
 
-  _.bindAll(this);
+  _.bindAll(this, ['pump', 'tick', 'scheduleTicks']);
 }
-
-util.makeEventEmitter(Heart);
 
 Heart.prototype.pump = function() {
   log.debug('scheduling ticks');
@@ -47,5 +45,8 @@ Heart.prototype.scheduleTicks = function() {
   // start!
   _.defer(this.tick);
 }
+
+util.makeEventEmitter(Heart);
+
 
 module.exports = Heart;

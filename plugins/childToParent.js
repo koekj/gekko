@@ -17,7 +17,7 @@ const ChildToParent = function() {
           next();
         }
       }
-    }, this);
+    });
 
 }
 

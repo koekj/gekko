@@ -5,7 +5,7 @@ const util = require('../core/util.js');
 const config = util.getConfig();
 
 const CandleUploader = function(done) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   done();
   this.candles = [];

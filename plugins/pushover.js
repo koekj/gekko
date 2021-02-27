@@ -6,7 +6,7 @@ var config = util.getConfig();
 var pushoverConfig = config.pushover;
 
 var Pushover = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.p;
   this.price = 'N/A';

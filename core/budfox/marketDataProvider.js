@@ -13,17 +13,15 @@ const dirs = util.dirs();
 
 const Manager = function(config) {
 
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   // fetch trades
   this.source = new MarketFetcher(config);
 
   // relay newly fetched trades
   this.source
-    .on('trades batch', this.relayTrades);
+    .on('trades batch', (batch) => this.relayTrades(batch));
 }
-
-util.makeEventEmitter(Manager);
 
 // HANDLERS
 Manager.prototype.retrieve = function() {
@@ -41,5 +39,8 @@ Manager.prototype.relayTrades = function(batch) {
 Manager.prototype.sendMarketStart = _.once(function(batch) {
   this.emit('marketStart', batch.first.date);
 });
+
+util.makeEventEmitter(Manager);
+
 
 module.exports = Manager;

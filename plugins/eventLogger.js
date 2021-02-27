@@ -5,12 +5,12 @@ const config = require('../core/util').getConfig().eventLogger;
 
 const EventLogger = function() {}
 
-_.each(subscriptions, sub => {
+subscriptions.forEach(sub => {
   if(config.whitelist && !config.whitelist.includes(sub.event)) {
     return;
   }
 
-  EventLogger.prototype[sub.handler] = (event, next) => {
+  EventLogger.prototype[sub.handler] = function(event, next) {
     log.info(`\t\t\t\t[EVENT ${sub.event}]\n`, event);
     if(_.isFunction(next))
       next();

@@ -5,7 +5,7 @@ var Ranger = require('ranger');
 var config = require('../core/util').getConfig().campfire;
 
 var Actor = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.commands = [{
     'handler': 'advice',
@@ -106,11 +106,11 @@ Actor.prototype = {
     if (message.userId === this.user.id) return false; // Make the bot ignore itself
     if (message.body === null) return false; // Handle weird cases where body is null sometimes
 
-    _.each(this.commands, function(command) {
+    this.commands.forEach((command) => {
       if (this.textHasCommandForBot(message.body, config.nickname, command.handler)) {
         command.callback();
       }
-    }, this);
+    });
   },
 
   textHasCommandForBot: function(text, nickname, handler) {

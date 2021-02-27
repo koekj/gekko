@@ -39,12 +39,10 @@ var TradeBatcher = function(tid) {
   if(!_.isString(tid))
     throw new Error('tid is not a string');
 
-  _.bindAll(this);
-  this.tid = tid;
+    _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+    this.tid = tid;
   this.last = -1;
 }
-
-util.makeEventEmitter(TradeBatcher);
 
 TradeBatcher.prototype.write = function(batch) {
 
@@ -95,23 +93,19 @@ TradeBatcher.prototype.write = function(batch) {
 TradeBatcher.prototype.filter = function(batch) {
   // make sure we're not trying to count
   // beyond infinity
-  var lastTid = _.last(batch)[this.tid];
+  var lastTid =_.last(batch)[this.tid];
   if(lastTid === lastTid + 1)
     util.die('trade tid is max int, Gekko can\'t process..');
 
   // remove trades that have zero amount
   // see @link
   // https://github.com/askmike/gekko/issues/486
-  batch = _.filter(batch, function(trade) {
-    return trade.amount > 0;
-  });
+  batch = batch.filter(trade => trade.amount > 0);
 
   // weed out known trades
   // TODO: optimize by stopping as soon as the
   // first trade is too old (reverse first)
-  return _.filter(batch, function(trade) {
-    return this.last < trade[this.tid];
-  }, this);
+  return batch.filter( (trade) => this.last < trade[this.tid]);
 }
 
 TradeBatcher.prototype.convertDates = function(batch) {
@@ -120,5 +114,8 @@ TradeBatcher.prototype.convertDates = function(batch) {
     return trade;
   });
 }
+
+util.makeEventEmitter(TradeBatcher);
+
 
 module.exports = TradeBatcher;

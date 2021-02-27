@@ -7,7 +7,7 @@ var handle = require('./handle');
 var postgresUtil = require('./util');
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
   this.done = done;
   this.db = handle;
   this.cache = [];
@@ -20,7 +20,7 @@ Store.prototype.writeCandles = function() {
   }
 
   //log.debug('Writing candles to DB!');
-  _.each(this.cache, candle => {
+  this.cache.forEach(candle => {
     var stmt =  `
     BEGIN; 
     LOCK TABLE ${postgresUtil.table('candles')} IN SHARE ROW EXCLUSIVE MODE; 

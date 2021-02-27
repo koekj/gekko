@@ -6,7 +6,7 @@ const config = util.getConfig();
 const blotterConfig = config.blotter;
 
 var Blotter = function(done) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.time;
   this.valueAtBuy = 0.0;

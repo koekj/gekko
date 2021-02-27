@@ -39,6 +39,7 @@ console.log('\tI\'m gonna make you rich, Bud Fox.', '\n\n');
 
 const dirs = util.dirs();
 
+
 if(util.launchUI()) {
   return require(util.dirs().web + 'server');
 }

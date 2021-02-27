@@ -480,7 +480,7 @@ class StickyOrder extends BaseOrder {
 
   calculateFilled() {
     let totalFilled = 0;
-    _.each(this.orders, (order, id) => totalFilled += order.filled);
+    this.orders.forEach((order) => totalFilled += order.filled);
 
     return totalFilled;
   }
@@ -687,7 +687,7 @@ class StickyOrder extends BaseOrder {
       let amount = 0;
       let date = moment(0);
 
-      _.each(trades, trade => {
+      trades.forEach(trade => {
         if(!trade) {
           return;
         }
@@ -711,7 +711,7 @@ class StickyOrder extends BaseOrder {
       if(first && first.fees) {
         summary.fees = {};
 
-        _.each(trades, trade => {
+        trades.forEach(trade => {
           if(!trade) {
             return;
           }
@@ -730,7 +730,7 @@ class StickyOrder extends BaseOrder {
         summary.feePercent = 0;
         let amount = 0;
 
-        _.each(trades, trade => {
+        trades.forEach(trade => {
           if(!trade || _.isUndefined(trade.feePercent)) {
             return;
           }

@@ -48,7 +48,7 @@ module.exports = done => {
               return util.die('DB error at `scanning tables`');
             }
 
-            _.each(result.rows, table => {
+            result.rows.forEach(table => {
               let parts = table.table_name.split('_');
               let first = parts.shift();
               let exchangeName = dbName;

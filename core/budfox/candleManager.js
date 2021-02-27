@@ -14,15 +14,14 @@ var log = require(dirs.core + 'log');
 var CandleCreator = require(dirs.budfox + 'candleCreator');
 
 var Manager = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.candleCreator = new CandleCreator;
 
   this.candleCreator
-    .on('candles', this.relayCandles);
+    .on('candles', (candles) => this.relayCandles(candles));
 };
 
-util.makeEventEmitter(Manager);
 Manager.prototype.processTrades = function(tradeBatch) {
   this.candleCreator.write(tradeBatch);
 }
@@ -30,5 +29,7 @@ Manager.prototype.processTrades = function(tradeBatch) {
 Manager.prototype.relayCandles = function(candles) {
   this.emit('candles', candles);
 }
+
+util.makeEventEmitter(Manager);
 
 module.exports = Manager;

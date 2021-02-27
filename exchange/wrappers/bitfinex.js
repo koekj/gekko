@@ -9,7 +9,7 @@ const retry = require('../exchangeUtils').retry;
 const marketData = require('./bitfinex-markets.json');
 
 var Trader = function(config) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;

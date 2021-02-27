@@ -42,7 +42,7 @@ module.exports = function(done) {
       'Please pick the daterange you are interested in testing:'
     );
 
-    _.each(ranges, (range, i) => {
+    ranges.forEach((range, i) => {
       log.info('\t\t', `OPTION ${i + 1}:`);
       log.info('\t', 'from:', moment.unix(range.from).utc().format('YYYY-MM-DD HH:mm:ss'));
       log.info('\t', 'to:', moment.unix(range.to).utc().format('YYYY-MM-DD HH:mm:ss'));

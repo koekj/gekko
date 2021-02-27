@@ -28,7 +28,7 @@ var sendToParent = function() {
 }
 
 var Log = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
   this.env = util.gekkoEnv();
 
   if(this.env === 'standalone')

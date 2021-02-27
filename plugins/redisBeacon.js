@@ -10,7 +10,7 @@ var _ = require('lodash');
 var redis = require("redis");
 
 var Actor = function(done) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.market = [
     watch.exchange,
@@ -29,7 +29,7 @@ var Actor = function(done) {
 // emit.
 
 var proto = {};
-_.each(redisBeacon.broadcast, function(e) {
+redisBeacon.broadcast.forEach((e) => {
   // grab the corresponding subscription 
   var subscription = _.find(subscriptions, function(s) { return s.event === e });
 

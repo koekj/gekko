@@ -34,8 +34,7 @@ var execute = function(callback, params) {
 // for a specific talib indicator are present.
 var verifyParams = (methodName, params) => {
     var requiredParams = methods[methodName].requires;
-
-    _.each(requiredParams, paramName => {
+    requiredParams.forEach(paramName => {
         if(!_.has(params, paramName)) {
             throw new Error(talibError + methodName + ' requires ' + paramName + '.');
         }

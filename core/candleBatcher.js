@@ -20,7 +20,7 @@ var CandleBatcher = function(candleSize) {
   this.smallCandles = [];
   this.calculatedCandles = [];
 
-  _.bindAll(this);
+  _.bindAll(this, ['write', 'check', 'flush', 'calculate' ]);
 }
 
 util.makeEventEmitter(CandleBatcher);
@@ -32,10 +32,10 @@ CandleBatcher.prototype.write = function(candles) {
 
   this.emitted = 0;
 
-  _.each(candles, function(candle) {
+  candles.forEach((candle) => {
     this.smallCandles.push(candle);
     this.check();
-  }, this);
+  });
 
   return this.emitted;
 }
@@ -50,11 +50,7 @@ CandleBatcher.prototype.check = function() {
 }
 
 CandleBatcher.prototype.flush = function() {
-  _.each(
-    this.calculatedCandles,
-    candle => this.emit('candle', candle)
-  );
-
+  this.calculatedCandles.forEach(candle => this.emit('candle', candle));
   this.calculatedCandles = [];
 }
 

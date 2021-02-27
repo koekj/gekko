@@ -54,10 +54,10 @@ if(config.debug && mode !== 'importer') {
       this.flushDefferedEvents();
       _done();
     });
-    _.each(this.candleConsumers, function(c) {
+    this.candleConsumers.forEach((c) => {
       at = c.meta.name;
       c.processCandle(chunk, flushEvents);
-    }, this);
+    });
   }
 } else {
   // skip decoration
@@ -70,9 +70,9 @@ if(config.debug && mode !== 'importer') {
       this.flushDefferedEvents();
       _done();
     });
-    _.each(this.candleConsumers, function(c) {
+    this.candleConsumers.forEach((c) => {
       c.processCandle(chunk, flushEvents);
-    }, this);
+    });
   }
 }
 

@@ -8,7 +8,7 @@ const scientificToDecimal = exchangeUtils.scientificToDecimal;
 const marketData = require('./kraken-markets.json');
 
 const Trader = function(config) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   if(_.isObject(config)) {
     this.key = config.key;
@@ -185,7 +185,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     if (err) return callback(err);
 
     var parsedTrades = [];
-    _.each(trades.result[this.pair], function(trade) {
+    trades.result[this.pair].forEach((trade) => {
       // Even when you supply 'since' you can still get more trades than you asked for, it needs to be filtered
       if (_.isNull(startTs) || startTs < moment.unix(trade[2]).valueOf()) {
         parsedTrades.push({
@@ -195,7 +195,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
           amount: parseFloat(trade[1])
         });
       }
-    }, this);
+    });
 
     if(descending)
       callback(undefined, parsedTrades.reverse());

@@ -15,7 +15,7 @@ const Indicators = {};
 
 const AsyncIndicatorRunner = require('./asyncIndicatorRunner');
 
-_.each(indicatorFiles, function(indicator) {
+indicatorFiles.forEach((indicator) => {
   const indicatorName = indicator.split(".")[0];
   if (indicatorName[0] != "_")
     try {
@@ -28,7 +28,7 @@ _.each(indicatorFiles, function(indicator) {
 const allowedIndicators = _.keys(Indicators);
 
 var Base = function(settings) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   // properties
   this.age = 0;
@@ -51,10 +51,10 @@ var Base = function(settings) {
   this._currentDirection;
 
   // make sure we have all methods
-  _.each(['init', 'check'], function(fn) {
+  ['init', 'check'].forEach((fn) => {
     if(!this[fn])
       util.die('No ' + fn + ' function in this strategy found.')
-  }, this);
+  });
 
   if(!this.update)
     this.update = function() {};

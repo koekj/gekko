@@ -31,7 +31,7 @@ var execute = function(callback, params) {
 var verifyParams = (methodName, params) => {
     var requiredParams = methods[methodName].requires;
 
-    _.each(requiredParams, paramName => {
+    requiredParams.forEach(paramName => {
         if(!_.has(params, paramName)) {
             throw new Error(tulindError + methodName + ' requires ' + paramName + '.');
         }

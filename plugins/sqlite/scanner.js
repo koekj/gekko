@@ -40,7 +40,7 @@ module.exports = done => {
         if(err)
           return next(err);
         
-        _.each(tables, table => {
+        tables.forEach(table => {
           let parts = table.name.split('_');
           let first = parts.shift();
           if(first === 'candles') 

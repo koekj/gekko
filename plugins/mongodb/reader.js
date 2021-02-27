@@ -6,7 +6,7 @@ var handle = require('./handle');
 var mongoUtil = require('./util');
 
 var Reader = function Reader () {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
   this.db = handle;
   this.collection = this.db.collection(mongoUtil.settings.historyCollection);
   this.pair = mongoUtil.settings.pair.join('_');

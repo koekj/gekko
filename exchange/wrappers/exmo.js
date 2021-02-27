@@ -13,7 +13,8 @@ const marketData = require('./exmo-markets.json');
 
 
 const Trader = function(config) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+
   this.key="";
   this.secret="";
   

@@ -66,7 +66,7 @@ var pipeline = (settings) => {
   // a reference to those plugins.
   var referenceEmitters = function(next) {
 
-    _.each(plugins, function(plugin) {
+    plugins.forEach((plugin) => {
       if(plugin.meta.emits)
         emitters[plugin.meta.slug] = plugin;
     });
@@ -85,8 +85,7 @@ var pipeline = (settings) => {
     // some events can be broadcasted by different
     // plugins, however the pipeline only allows a single
     // emitting plugin for each event to be enabled.
-    _.each(
-      pluginSubscriptions.filter(s => _.isArray(s.emitter)),
+    pluginSubscriptions.filter(s => _.isArray(s.emitter)).forEach(
       subscription => {
         // cache full list
         subscription.emitters = subscription.emitter;
@@ -108,8 +107,8 @@ var pipeline = (settings) => {
 
     // subscribe interested plugins to
     // emitting plugins
-    _.each(plugins, function(plugin) {
-      _.each(pluginSubscriptions, function(sub) {
+    plugins.forEach((plugin) => {
+      pluginSubscriptions.forEach((sub) => {
 
         if(plugin[sub.handler]) {
           // if a plugin wants to listen
@@ -157,8 +156,8 @@ var pipeline = (settings) => {
     );
 
     // subscribe plugins to the market
-    _.each(plugins, function(plugin) {
-      _.each(marketSubscriptions, function(sub) {
+    plugins.forEach((plugin) => {
+      marketSubscriptions.forEach((sub) => {
 
         if(plugin[sub.handler]) {
           if(sub.event === 'candle')
@@ -201,8 +200,8 @@ var pipeline = (settings) => {
       {emitter: 'market'}
     );
 
-    _.each(plugins, function(plugin) {
-      _.each(marketSubscriptions, function(sub) {
+    plugins.forEach((plugin) => {
+      marketSubscriptions.forEach((sub) => {
 
         if(sub.event === 'candle')
           // these are handled via the market stream

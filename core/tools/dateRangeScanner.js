@@ -101,7 +101,7 @@ var scan = function(done) {
 
             var ranges = [ batches.shift() ];
 
-            _.each(batches, batch => {
+            batches.forEach(batch => {
               var curRange = _.last(ranges);
               if(batch.to === curRange.from)
                 curRange.from = batch.from;

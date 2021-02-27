@@ -139,18 +139,14 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     if (err) return callback(err);
 
     var parsedTrades = [];
-    _.each(
-      data,
-      function(trade) {
+    data.forEach((trade) => {
         parsedTrades.push({
           tid: trade.aggTradeId,
           date: moment(trade.timestamp).unix(),
           price: parseFloat(trade.price),
           amount: parseFloat(trade.quantity),
         });
-      },
-      this
-    );
+    });
 
     if (descending) callback(null, parsedTrades.reverse());
     else callback(undefined, parsedTrades);
@@ -386,7 +382,7 @@ Trader.prototype.getOrder = function(order, callback) {
       return;
     }
 
-    _.each(trades, trade => {
+    trades.forEach(trade => {
       date = moment(trade.time);
       price = ((price * amount) + (+trade.price * trade.qty)) / (+trade.qty + amount);
       amount += +trade.qty;

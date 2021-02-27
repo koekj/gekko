@@ -8,7 +8,7 @@ var log = require('../core/log');
 
 
 var Trader = function (config) {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   if (_.isObject(config)) {
     this.key = config.key;
@@ -102,7 +102,7 @@ Trader.prototype.getTrades = function (since, callback, ascending) {
     }
 
     var parsedTrades = [];
-    _.each(trades, function (trade) {
+    trades.forEach((trade) => {
       // Even when you supply 'since' you can still get more trades than you asked for, it needs to be filtered
       if (_.isNull(startTs) || startTs < moment(trade.timestamp).valueOf()) {
         parsedTrades.push({
@@ -113,7 +113,7 @@ Trader.prototype.getTrades = function (since, callback, ascending) {
           tid: trade.timestamp
         });
       }
-    }, this);
+    });
 
     if(ascending)
       callback(undefined, parsedTrades);

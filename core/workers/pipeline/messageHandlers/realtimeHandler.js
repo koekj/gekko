@@ -1,7 +1,7 @@
 // pass back all messages as is
 // (except for errors and logs)
 
-module.exports = cb => {
+module.exports = function (cb) {
 
   return {
     message: message => {

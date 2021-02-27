@@ -42,7 +42,7 @@ if(to <= from)
   util.die('This daterange does not make sense.')
 
 var Market = function() {
-  _.bindAll(this);
+  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
 
   this.exchangeSettings = exchangeChecker.settings(config.watch);
 
@@ -57,24 +57,22 @@ var Market = function() {
 
   this.fetcher.bus.on(
     'trades',
-    this.processTrades
+    (trades) => this.processTrades(trades)
   );
 
   this.fetcher.bus.on(
     'done',
-    function() {
-      this.done = true;
-    }.bind(this)
+    () => this.done = true
   )
 
   this.tradeBatcher.on(
     'new batch',
-    this.candleManager.processTrades
+    (trades) => this.candleManager.processTrades(trades)
   );
 
   this.candleManager.on(
     'candles',
-    this.pushCandles
+    (candles) => this.pushCandles(candles)
   );
 
   Readable.call(this, {objectMode: true});
@@ -90,7 +88,9 @@ Market.prototype = Object.create(Readable.prototype, {
 Market.prototype._read = _.noop;
 
 Market.prototype.pushCandles = function(candles) {
-  _.each(candles, this.push);
+  candles.forEach((candle) => {
+    this.push(candle);
+  });
 }
 
 Market.prototype.get = function() {
@@ -109,10 +109,14 @@ Market.prototype.processTrades = function(trades) {
   if(_.size(trades) && gekkoEnv === 'child-process') {
     let lastAtTS = _.last(trades).date;
     let lastAt = moment.unix(lastAtTS).utc().format();
-    process.send({event: 'marketUpdate', payload: lastAt});
+    process.send({event: 'marketUpdate', payload: lastAt} , null, {swallowErrors: false }, (err) => {
+      if ( err ) {
+        console.error(err);
+      }
+    });
   }
 
-  setTimeout(this.get, 1000);
+  setTimeout(() => this.get, 1000);
 }
 
 module.exports = Market;

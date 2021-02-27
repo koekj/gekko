@@ -25,7 +25,7 @@ var pluginHelper = {
     if(_.has(plugin, 'dependencies'))
       var error = false;
 
-      _.each(plugin.dependencies, function(dep) {
+      _.each(plugin.dependencies, (dep) => {
         try {
           var a = require(dep.module);
         }
