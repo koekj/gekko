@@ -4,13 +4,20 @@ module.exports = done => {
   let backtest;
 
   return {
-    message: message => {
-      if(message.type === 'error') {
-        done(message.error);
+    message: (msg) => {
+      if(msg.type === 'error') {
+        done(msg.error);
+      } else if(msg.type === 'info')
+        console.log(msg.message);
+      
+      else if(msg.type === 'log')
+        console.log(msg.message);
+      else {
+        console.log(msg.message);
       }
-
-      if(message.backtest) {
-        done(null, message.backtest);
+      
+      if(msg.backtest) {
+        done(null, msg.backtest);
       }
     },
     exit: status => {

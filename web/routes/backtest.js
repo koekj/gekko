@@ -17,15 +17,20 @@ const pipelineRunner = promisify(require('../../core/workers/pipeline/parent'));
 //   }
 // }
 module.exports = function (ctx,next) {
-  var mode = 'backtest';
+  return new Promise((resolve) => {
+    var mode = 'backtest';
 
-  var config = {};
-
-  var base = require('./baseConfig');
-
-  var req = ctx.request.body;
-
-  _.merge(config, base, req);
-
-  ctx.body = pipelineRunner(mode, config);
+    var config = {};
+  
+    var base = require('./baseConfig');
+  
+    var req = ctx.request.body;
+  
+    _.merge(config, base, req);
+    pipelineRunner(mode, config, (err,result)  => {
+      ctx.body = result;
+      resolve();
+    });
+  
+  });
 }

@@ -10,6 +10,8 @@ const moment = require('moment');
 const fs = require('fs');
 
 const BacktestResultExporter = function() {
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
+
   this.performanceReport;
   this.roundtrips = [];
   this.stratUpdates = [];
@@ -32,9 +34,8 @@ const BacktestResultExporter = function() {
 
   if(!config.backtestResultExporter.data.trades)
     this.processTradeCompleted = null;
-
-  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
-}
+  
+  }
 
 BacktestResultExporter.prototype.processPortfolioValueChange = function(portfolio) {
   this.portfolioValue = portfolio.balance;
