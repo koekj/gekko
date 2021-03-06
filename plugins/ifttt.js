@@ -6,7 +6,7 @@ const config = util.getConfig();
 const iftttConfig = config.ifttt;
 
 const IFTTT = function(done) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
   this.ifttt;
   this.price = 'N/A';
   this.done = done;

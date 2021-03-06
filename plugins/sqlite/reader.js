@@ -7,7 +7,7 @@ var sqlite = require('./handle');
 var sqliteUtil = require('./util');
 
 var Reader = function() {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
   this.db = sqlite.initDB(true);
 }
 

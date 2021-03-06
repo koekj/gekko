@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": ".",
     "allowJs": true,
-    "target": "es5"
+    "checkJs": true,
+    "noEmit": true,
+    "target": "esnext",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "strict": false
   },
-  "include": ["./**/*"]
+  "exclude": [
+    "tests/fixtures/",
+    "tests/integration/"
+  ]
 }

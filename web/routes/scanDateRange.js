@@ -8,9 +8,14 @@ const scan = promisify(require('../../core/workers/dateRangeScan/parent'));
 // 
 // - config.watch
 const route = function (ctx,next) {
-  var config = require('./baseConfig');
-  _.merge(config, ctx.request.body);
-  ctx.body = scan(config);
+  return new Promise(resolve => {
+      var config = require('./baseConfig');
+      _.merge(config, ctx.request.body);
+      scan(config, (err,result) => {
+        ctx.body = result;
+        resolve();
+      });
+  });
 };
 
 module.exports = route;

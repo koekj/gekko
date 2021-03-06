@@ -14,7 +14,7 @@ var log = require(dirs.core + 'log');
 var CandleCreator = require(dirs.budfox + 'candleCreator');
 
 var Manager = function() {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   this.candleCreator = new CandleCreator;
 

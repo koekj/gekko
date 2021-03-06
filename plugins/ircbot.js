@@ -8,7 +8,7 @@ var utc = moment.utc;
 var irc = require("irc");
 
 var Actor = function() {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   this.bot = new irc.Client(ircbot.server, ircbot.botName, {
     channels: [ ircbot.channel ] 

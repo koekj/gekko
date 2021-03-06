@@ -39,7 +39,7 @@ var TradeBatcher = function(tid) {
   if(!_.isString(tid))
     throw new Error('tid is not a string');
 
-    _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+    _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
     this.tid = tid;
   this.last = -1;
 }

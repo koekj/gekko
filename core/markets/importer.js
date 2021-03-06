@@ -42,7 +42,7 @@ if(to <= from)
   util.die('This daterange does not make sense.')
 
 var Market = function() {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   this.exchangeSettings = exchangeChecker.settings(config.watch);
 

@@ -10,7 +10,7 @@ const Logger = function(id) {
   this.writing = false;
   this.queue = [];
 
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 }
 
 Logger.prototype.write = function(line) {

@@ -18,7 +18,7 @@ var MarketDataProvider =  require(dirs.budfox + 'marketDataProvider');
 var CandleManager = require(dirs.budfox + 'candleManager');
 
 var BudFox = function(config) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   Readable.call(this, {objectMode: true});
 

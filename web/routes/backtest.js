@@ -23,9 +23,9 @@ module.exports = function (ctx,next) {
 
   var base = require('./baseConfig');
 
-  var req = this.request.body;
+  var req = ctx.request.body;
 
   _.merge(config, base, req);
 
-  ctxt.body = pipelineRunner(mode, config);
+  ctx.body = pipelineRunner(mode, config);
 }

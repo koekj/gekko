@@ -24,7 +24,7 @@ const Fetcher = function(config) {
 
   const exchangeName = config.watch.exchange.toLowerCase();
   const DataProvider = require(util.dirs().gekko + 'exchange/wrappers/' + exchangeName);
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   // Create a public dataProvider object which can retrieve live
   // trade information from an exchange.

@@ -5,7 +5,7 @@ var moment = require('moment');
 var log = require('../core/log');
 
 var Trader = function(config) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   if(_.isObject(config)) {
     this.key = config.key;
@@ -36,8 +36,7 @@ Trader.prototype.retry = function(method, args) {
 
   // run the failed method again with the same
   // arguments after wait
-  setTimeout(
-    function() { method.apply(self, args) },
+  setTimeout(() => { method.apply(self, args) },
     wait
   );
 }

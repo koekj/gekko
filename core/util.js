@@ -7,11 +7,11 @@ var program = require('commander');
 
 var startTime = moment();
 
-var _config = false;
-var _package = false;
+var _config;
+var _package;
 var _nodeVersion = false;
 var _gekkoMode = false;
-var _gekkoEnv = false;
+var _gekkoEnv = '';
 
 var _args = false;
 

@@ -34,7 +34,7 @@ else
 
 var Market = function() {
 
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   Readable.call(this, {objectMode: true});
 

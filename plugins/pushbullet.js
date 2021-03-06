@@ -39,7 +39,7 @@ var config = util.getConfig();
 var pbConf = config.pushbullet;
 
 var Pushbullet = function(done) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   this.pusher;
   this.price = 'N/A';

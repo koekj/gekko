@@ -5,7 +5,9 @@ const retry = require('../exchangeUtils').retry;
 const marketData = require('./poloniex-markets.json');
 
 const Trader = function(config) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
+
+  this.checkInterval = 1000;
 
   if(_.isObject(config)) {
     this.key = config.key;
@@ -14,8 +16,8 @@ const Trader = function(config) {
     this.asset = config.asset;
   }
   this.name = 'Poloniex';
-  this.balance;
-  this.price;
+  this.balance = 0;
+  this.price = 0;
 
   this.pair = this.currency + '_' + this.asset;
 

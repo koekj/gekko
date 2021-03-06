@@ -28,7 +28,7 @@ indicatorFiles.forEach((indicator) => {
 const allowedIndicators = _.keys(Indicators);
 
 var Base = function(settings) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   // properties
   this.age = 0;

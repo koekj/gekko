@@ -12,7 +12,7 @@ const log = require(dirs.core + 'log');
 const TrailingStop = require(dirs.broker + 'triggers/trailingStop');
 
 const PaperTrader = function() {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
   
   if(calcConfig.feeUsing === 'maker') {
     this.rawFee = calcConfig.feeMaker;

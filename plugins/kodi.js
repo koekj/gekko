@@ -10,7 +10,7 @@ var config = util.getConfig();
 var kodiConfig = config.kodi;
 
 var Kodi = function(done) {
-    _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+    _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
     this.exchange = config.watch.exchange.charAt().toUpperCase() + config.watch.exchange.slice(1)
 

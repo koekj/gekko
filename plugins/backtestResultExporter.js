@@ -33,7 +33,7 @@ const BacktestResultExporter = function() {
   if(!config.backtestResultExporter.data.trades)
     this.processTradeCompleted = null;
 
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 }
 
 BacktestResultExporter.prototype.processPortfolioValueChange = function(portfolio) {

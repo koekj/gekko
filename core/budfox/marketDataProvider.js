@@ -13,7 +13,7 @@ const dirs = util.dirs();
 
 const Manager = function(config) {
 
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   // fetch trades
   this.source = new MarketFetcher(config);

@@ -37,7 +37,7 @@ module.exports = function (config, done) {
         next();
       });
 
-    }, err => {
+    }, (err) => {
       let resp = {
         datasets: [],
         errors: []

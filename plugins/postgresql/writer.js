@@ -7,7 +7,7 @@ var handle = require('./handle');
 var postgresUtil = require('./util');
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
   this.done = done;
   this.db = handle;
   this.cache = [];

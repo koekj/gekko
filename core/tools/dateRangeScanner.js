@@ -66,10 +66,10 @@ var scan = function(done) {
       // in batches and track whether they
       // are complete
       async.whilst(
-          () => {
-            return iterator.from > first
+          (cb) => {
+            cb(null, iterator.from > first);
           },
-          next => {
+          (next) => {
             var from = iterator.from;
             var to = iterator.to;
             reader.count(

@@ -49,7 +49,7 @@ var moment = require('moment');
 var util = require(__dirname + '/../util');
 
 var CandleCreator = function() {
-  _.bindAll(this, Object.keys(this.__proto__).filter((key) => typeof this.__proto__[key] === 'function'));
+  _.bindAll(this, Object.keys(this['__proto__']).filter((key) => typeof this['__proto__'][key] === 'function'));
 
   // TODO: remove fixed date
   this.threshold = moment("1970-01-01", "YYYY-MM-DD");

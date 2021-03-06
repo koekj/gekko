@@ -7,7 +7,7 @@ module.exports = function(config, done) {
     process.execArgv = [];
   }
 
-  task = new ForkTask(fork(__dirname + '/child'));
+  var task = new ForkTask(fork(__dirname + '/child'));
 
   task.send('start', config);
 

@@ -34,8 +34,8 @@ const base = require('./baseConfig');
 
 module.exports = function (ctx,next) {
   return new Promise((resolve) => {
-    config = {};
+    var config = {};
     _.merge(config, base, ctx.request.body);
     ctx.body = candleLoader(config, resolve);
-  })
+  });
 }
