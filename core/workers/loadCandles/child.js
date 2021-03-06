@@ -5,7 +5,7 @@ var start = (config, candleSize, daterange) => {
   util.setGekkoEnv('child-process');
 
   // force disable debug
-  config.debug = false;
+  config.debug = true;
   util.setConfig(config);
 
   var dirs = util.dirs();

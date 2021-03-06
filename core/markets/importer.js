@@ -116,7 +116,9 @@ Market.prototype.processTrades = function(trades) {
     });
   }
 
-  setTimeout(() => this.get, 1000);
+  setTimeout(() => {
+    this.get();
+  }, 1000);
 }
 
 module.exports = Market;

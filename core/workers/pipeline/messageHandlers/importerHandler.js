@@ -1,23 +1,26 @@
 module.exports = cb => {
 
   return {
-    message: message => {
+    message: msg => {
 
-      if(message.event === 'marketUpdate')
+      if(msg.event === 'marketUpdate')
         cb(null, {
           done: false,
-          latest: message.payload
+          latest: msg.payload
         })
 
-      else if(message.type === 'error') {
-        cb(message.error);
+      else if(msg.type === 'error') {
+        cb(msg.error);
       }
 
-      else if(message.type === 'info')
-        console.log(message.log);
+      else if(msg.type === 'info')
+        console.log(msg.message);
         
-      else if(message.type === 'log')
-        console.log(message.log);
+      else if(msg.type === 'log')
+        console.log(msg.message);
+      else {
+        console.log(msg.message);
+      }
     },
     exit: status => {
       if(status !== 0)
