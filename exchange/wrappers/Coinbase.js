@@ -13,7 +13,7 @@ const marketData = require('./coinbase-markets.json');
 const Trader = function(config) {
   this.post_only = true;
   this.use_sandbox = false;
-  this.name = 'Coinbase';
+  this.name = 'coinbase';
   this.scanback = false;
   this.scanbackTid = 0;
   this.scanbackResults = [];
@@ -412,8 +412,8 @@ Trader.prototype.getMaxDecimalsNumber = function(number, decimalLimit = 8) {
 
 Trader.getCapabilities = function() {
   return {
-    name: 'Coinbase',
-    slug: 'Coinbase',
+    name: 'coinbase',
+    slug: 'coinbase',
     currencies: marketData.currencies,
     assets: marketData.assets,
     markets: marketData.markets,

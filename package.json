@@ -17,6 +17,7 @@
   "dependencies": {
     "async": "3.2.0",
     "bitfinex-api-node": "^5.0.0",
+    "coinbase-pro": "^0.9.0",
     "commander": "^7.1.0",
     "gekko": "0.0.9",
     "humanize-duration": "^3.25.1",

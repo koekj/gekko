@@ -12,7 +12,7 @@ const BATCH_SIZE = 100;
 const SCAN_ITER_SIZE = 50000;
 const BATCH_ITER_SIZE = BATCH_SIZE * 10;
 
-const Fetcher = require(dirs.exchanges + 'Coinbase');
+const Fetcher = require(dirs.exchanges + 'coinbase');
 const retry = require(dirs.exchanges + '../exchangeUtils').retry;
 
 Fetcher.prototype.getTrades = function(sinceTid, callback) {
